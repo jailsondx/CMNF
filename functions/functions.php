@@ -59,10 +59,11 @@ function cadastra_produto($prd, $conn)
     
     if ($inserir->execute()) {
         $_SESSION['msg'] = "<p style = 'color: #e67e22;'> CADASTRO REALIZADO </p>"; //Gera mensagem de cadastro OK
-        header("Location: ../pages/produto_cadastro.php"); //direciona a mensagem para a pagina cadastropet.php
+        header("Location: ../pages/produto_cadastro.php"); //direciona a mensagem para a pagina: produto_cadastro.php
     } else {
         $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE CADASTRO<br>VERIFIQUE OS DADOS </p>"; //Gera mensagem de erro no cadastro
-        header("Location: ../pages/produto_cadastro.php"); //direciona a mensagem para a pagina cadastropet.php
+        header("Location: ../pages/produto_cadastro.php"); //direciona a mensagem para a pagina: produto_cadastro.php
+        
     }
 }
 

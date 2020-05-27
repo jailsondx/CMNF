@@ -93,8 +93,6 @@ if ($_SESSION['log']) {
 </div>
 
 
-
-
 <!-- MODAL SCRIPT -->
 <script>
     $('#exampleModal').on('show.bs.modal', function(event) {

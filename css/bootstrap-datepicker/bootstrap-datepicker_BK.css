@@ -86,8 +86,8 @@
 .datepicker td,
 .datepicker th {
   text-align: center;
-  width: 50px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -99,12 +99,12 @@
 }
 .datepicker table tr td.day:hover,
 .datepicker table tr td.day.focused {
-  background: #e67e22; /* COR DO ONMOUSE */
+  background: #eee;
   cursor: pointer;
 }
 .datepicker table tr td.old,
 .datepicker table tr td.new {
-  color: #e67e22; /* COR DOS DIAS REFERENTES A OUTROS MESES */
+  color: #999;
 }
 .datepicker table tr td.disabled,
 .datepicker table tr td.disabled:hover {

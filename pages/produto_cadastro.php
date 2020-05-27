@@ -38,7 +38,8 @@ if ($_SESSION['log']) {
                 <input type="text" class="form-control" id="pos_right" name="embalagem" maxlength="12" autocomplete="off">
 
                 <label for="data">Data da Compra</label>
-                <input type="text" class="form-control datepicker" name="data_compra" maxlength="12" autocomplete="off">
+                <input type="text" class="form-control" id="datepicker" name="data_compra" maxlength="12" autocomplete="off">
+                
 
                 <a href="select_screen.php"> <input type="button" class="btn btn-warning" id="btn-return" value="VOLTAR" name="VOLTAR"> </a>
                 <input type="submit" class="btn btn-warning" id="btn" value="CADASTRAR" name="CHECK">
@@ -49,9 +50,14 @@ if ($_SESSION['log']) {
         <!-- SCRIPT DO CALENDÁRIO PARA DATA DA COMPRA -->
         <script>
             $(function() {
-                $(".datepicker").datepicker({
+                $("#datepicker").datepicker({
                     format: "dd/mm/yyyy",
-                    language: "pt-BR"
+                    language: "pt-BR",
+                    title: "DATA DA COMPRA",
+                    autoclose: true,
+                    showOnFocus: true,
+                    todayHighlight: true,
+                    todayBtn: 'linked',
                 });
             });
         </script>

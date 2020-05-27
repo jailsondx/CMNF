@@ -1,3 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e67e22;">
+    <span class="navbar-toggler-icon"></span>
+    <div class="navbar-brand">CMNF</div>
+    <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Relatórios
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Produtos</a>
+                    <a class="dropdown-item" href="#">Fornecedores</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Produtos Especificos</a>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+
+
 <?php
 require 'require.php';
 
@@ -9,6 +32,9 @@ if ($_SESSION['log']) {
 }
 
 ?>
+
+
+
 
 <div class="container-box-screen">
 

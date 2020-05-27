@@ -21,7 +21,8 @@ if ($log) {
             $prd->valor_venda = strtoupper(addslashes(filter_input(INPUT_POST, 'valor_venda', FILTER_SANITIZE_NUMBER_FLOAT)));
             $prd->quantidade = strtoupper(addslashes(filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_NUMBER_INT)));
             $prd->embalagem = strtoupper(addslashes(filter_input(INPUT_POST, 'embalagem', FILTER_SANITIZE_STRING)));
-            $prd->data_compra = strtoupper(addslashes(filter_input(INPUT_POST, 'data_compra')));
+            $data = strtoupper(addslashes(filter_input(INPUT_POST, 'data_compra')));
+            $prd->data_compra = implode("-",array_reverse(explode("/",$data))); //converte data em formato americano para o MySql
             cadastra_produto($prd, $conn);
         break;
 

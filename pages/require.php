@@ -27,6 +27,12 @@ require '../functions/database.php';
   <link rel="stylesheet" type="text/css" href="../css/jquery/jquery-ui.css">
   <link rel="stylesheet" type="text/css" href="../css/bootstrap-datepicker/bootstrap-datepicker.css">
 
+  <!-- MATERIALIZE CSS
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+  -->
+
   <!-- FAVICON -->
   <link rel="shortcut icon" href="../css/images/favicon.png" type="image/x-icon" />
 
@@ -53,6 +59,21 @@ require '../functions/database.php';
 </HEAD>
 
 <BODY>
+
+<!-- MENU NAVBAR PARA MATERIALIZE
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Angular</a></li>
+        <li><a href="#">Ionic</a></li>
+        <li><a href="#">TypeScript</a></li>
+        <li><a href="#">Cordova</a></li>
+      </ul>
+    </div>
+  </nav>
+-->
+
   <div class="sessao">
     <?php
     if (isset($_SESSION['msg'])) {

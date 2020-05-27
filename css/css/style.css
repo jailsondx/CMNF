@@ -7,11 +7,16 @@
     modal header & footer: #2980b9
     modal body: #ecf0f1
 */
+
 body{
     /* background-color:#1e272e; */
     background-image: url(../images/bg-image.jpg);
-    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
+
 
 input:focus{
     background: none !important;
@@ -275,6 +280,7 @@ input:focus{
     border-radius: 20px;
     margin-top: 10px;
     border: 2px solid #c0392b;
+    
 
     font-size: 25px;
     margin-left: 20px;
