@@ -51,6 +51,11 @@ if ($log) {
             $prd->data_compra = strtoupper(addslashes(filter_input(INPUT_POST, 'data_compra')));
             atualiza_produto($prd, $conn);
         break;
+
+        case 'DELETAR';
+            $prd = addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT));
+            apaga_produto($prd, $conn);
+        break;
     }
 } else {
     $_SESSION['msg'] = 'ACESSO NÃO AUTORIZADO';

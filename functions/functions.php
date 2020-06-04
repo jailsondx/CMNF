@@ -35,7 +35,7 @@ function valida_login($user, $pass, $conn)
         //echo $row_result['usuario'];
         //echo $row_result['senha'];
         $url = '../pages/select_screen.php';
-        $_SESSION['log'] = 'TESTE DE ENTRADA';
+        $_SESSION['log'] = 'LOGIN REALIZADO';
         header('location: ' . $url);
     } else {
         $_SESSION['msg'] = 'ACESSO NÃO AUTORIZADO';
@@ -76,15 +76,16 @@ function cadastra_fornecedor($for, $conn)
     $inserir->bindParam(':cidade', $for->cidade);
     
     if ($inserir->execute()) {
-        $_SESSION['msg'] = "<p style = 'color: #e67e22;'> CADASTRO REALIZADO </p>"; //Gera mensagem de cadastro OK
+        $_SESSION['msg'] = "<p style = 'color: #e67e22;'> FORNECEDOR REGISTRADO </p>"; //Gera mensagem de cadastro OK
         header("Location: ../pages/fornecedor_cadastro.php"); //direciona a mensagem para a pagina cadastropet.php
     } else {
-        $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE CADASTRO<br>VERIFIQUE OS DADOS </p>"; //Gera mensagem de erro no cadastro
+        $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE REGISTRO<br>VERIFIQUE OS DADOS </p>"; //Gera mensagem de erro no cadastro
         header("Location: ../pages/fornecedor_cadastro.php"); //direciona a mensagem para a pagina cadastropet.php
     }
 }
 
-function busca_produto($busca, $conn){
+function busca_produto($busca, $conn)
+{
     $inf_produto = "SELECT * FROM produtos WHERE item LIKE '%".$busca."%' OR cod_barras LIKE '$busca' LIMIT 5";
     //$inf_produto = "SELECT * FROM produtos WHERE cod_barras LIKE '$busca' LIMIT 5";  
     //$inf_produto = "SELECT * FROM produtos WHERE item LIKE '%$busca%' LIMIT 5"; 
@@ -103,7 +104,8 @@ function busca_produto($busca, $conn){
         }
 }
 
-function editar_produto($row_result){
+function editar_produto($row_result)
+{
     echo "<input type='button' class='btn btn-warning' id='btn-edit' value='EDITAR' name='EDITAR' 
     data-toggle='modal' data-target='#exampleModal'
     data-id='".$row_result['id']."' 
@@ -118,7 +120,8 @@ function editar_produto($row_result){
     >";
 }
 
-function atualiza_produto($prd, $conn){
+function atualiza_produto($prd, $conn)
+{
     $atualiza_produto = "UPDATE produtos SET item=:item, cod_barras=:cod_barras, fornecedor=:fornecedor, 
                         valor_compra=:valor_compra, valor_venda=:valor_venda, quantidade=:quantidade, 
                         embalagem=:embalagem, data_compra=:data_compra WHERE id=:id"; //função inserir do mysql
@@ -142,4 +145,32 @@ function atualiza_produto($prd, $conn){
         $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE ATUALIZAÇÃO<br>VERIFIQUE OS DADOS </p>"; //Gera mensagem de erro no cadastro
         header("Location: ../pages/produto_busca.php"); //direciona a mensagem para a pagina produto_busca.php
     }
+}
+
+function apaga_produto($prd, $conn)
+{
+    $apagar_produto = "DELETE FROM produtos WHERE id = $prd"; //função deletar do mysql
+
+    $apagar = $conn->prepare($apagar_produto);
+    $apagar->bindParam(':id', $prd->id);
+    
+
+    if ($apagar->execute()) {
+        $_SESSION['msg'] = "<p style = 'color: #e67e22;'> PRODUTO APAGADO COM SUCESSO</p>"; //Gera mensagem de cadastro OK
+        header("Location: ../pages/produto_busca.php"); //direciona a mensagem para a pagina produto_busca.php
+    } else {
+        $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE EXCLUSÃO<br>VERIFIQUE OS DADOS </p>"; //Gera mensagem de erro no cadastro
+        header("Location: ../pages/produto_busca.php"); //direciona a mensagem para a pagina produto_busca.php
+    }
+}
+
+function allproducts($conn){
+    $sql = "SELECT * FROM produto ORDER BY item";
+    $resultado = $conn->prepare($sql);
+    $resultado->execute();
+
+        while($row_result = $resultado->fetch(PDO::FETCH_ASSOC)){
+            $grupo = $row_result['item'];
+        }
+    return $grupo;
 }

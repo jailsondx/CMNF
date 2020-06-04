@@ -85,7 +85,9 @@ if ($_SESSION['log']) {
 
             </div>
             <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" value="DELETAR" name="CHECK">Apagar Produto</button>
                 <button type="submit" class="btn btn-warning" value="ATUALIZAR" name="CHECK">Salvar Atualização do Produto</button>
+                
             </div>
             </form>
         </div>
@@ -120,14 +122,4 @@ if ($_SESSION['log']) {
         modal.find('#recipient-embalagem').val(recipient_embalagem)
         modal.find('#recipient-datacompra').val(recipient_datacompra)
     })
-</script>
-
-
-<!-- SCRIPT DE AUTOCOMPLETE DO FORNECEDOR -->
-<script>
-    $(function() {
-        $("#recipient-fornecedor").autocomplete({
-            source: 'autocomplete_fornecedor.php'
-        });
-    });
 </script>

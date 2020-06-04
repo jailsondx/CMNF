@@ -32,13 +32,13 @@ if ($_SESSION['log']) {
                 <input type="text" class="form-control" id="pos_right" name="valor_venda" placeholder="R$" maxlength="8" autocomplete="off" required>
 
                 <label for="quantidade">Quantidade</label>
-                <input type="text" class="form-control" id="pos_left" name="quantidade" maxlength="9" autocomplete="off">
+                <input type="text" class="form-control" id="pos_left" name="quantidade" maxlength="9" autocomplete="off" required>
 
                 <label for="embalagem" id="txt_right">Embalagem</label>
                 <input type="text" class="form-control" id="pos_right" name="embalagem" maxlength="12" autocomplete="off">
 
                 <label for="data">Data da Compra</label>
-                <input type="text" class="form-control" id="datepicker" name="data_compra" maxlength="12" autocomplete="off">
+                <input type="text" class="form-control" id="datepicker" name="data_compra" maxlength="12" autocomplete="off" required>
                 
 
                 <a href="select_screen.php"> <input type="button" class="btn btn-warning" id="btn-return" value="VOLTAR" name="VOLTAR"> </a>
@@ -62,11 +62,19 @@ if ($_SESSION['log']) {
             });
         </script>
 
-        <!-- SCRIPT DE AUTOCOMPLETE DO FORNECEDOR -->
+        <!-- SCRIPTS DE AUTOCOMPLETE -->
         <script>
             $(function() {
                 $("#fornecedor").autocomplete({
                     source: "../functions/autocomplete_fornecedor.php"
+                });
+            });
+        </script>
+        <script>
+            $(function() {
+                var embalagem = document.getElementsByName("embalagem");
+                $(embalagem).autocomplete({
+                    source: ['UNIDADE', 'PACOTE', 'CAIXA', 'PAR']
                 });
             });
         </script>

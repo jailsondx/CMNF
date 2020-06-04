@@ -1,5 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e67e22;">
-    <span class="navbar-toggler-icon"></span>
+<!-- MENU -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #e67e22;">
+   <!-- <span class="navbar-toggler-icon"></span>   -->
     <div class="navbar-brand">CMNF</div>
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
         <ul class="navbar-nav mr-auto">
@@ -8,7 +9,7 @@
                     Relatórios
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Produtos</a>
+                    <a class="dropdown-item" href="gera_pdf_produtos.php">Produtos</a>
                     <a class="dropdown-item" href="#">Fornecedores</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Produtos Especificos</a>
@@ -19,6 +20,7 @@
 
     </div>
 </nav>
+<!-- ---------------------------------------------------------------------- -->
 
 
 <?php

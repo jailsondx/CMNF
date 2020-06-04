@@ -8,4 +8,4 @@ Require:
  - Apache 2.4.39
 
 Based:
-HTML, CSS, JavaScript, Bootstrap 4
+HTML, HTML5, CSS, JavaScript, jQuery, JSON, Bootstrap 4...
