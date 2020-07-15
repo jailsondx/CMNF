@@ -9,10 +9,19 @@
                     Relatórios
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="gera_pdf_produtos.php">Produtos</a>
-                    <a class="dropdown-item" href="#">Fornecedores</a>
+                    <a class="dropdown-item" href="gera_pdf_produtos.php" target="_blank">Produtos</a>
+                    <a class="dropdown-item" href="gera_pdf_fornecedores.php" target="_blank">Fornecedores</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Produtos Especificos</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Fornecedores
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="fornecedor_cadastro.php">Registrar Fornecedor</a>
+                    <a class="dropdown-item" href="fornecedor_del.php">Apagar Fornecedor</a>
                 </div>
             </li>
 
@@ -68,7 +77,7 @@ if ($_SESSION['log']) {
                 <i class="fas fa-address-card"></i>
             </div>
             <div class="conteudo">
-                <h2>Cadastar Fornecedor</h2>
+                <h2>Registrar Fornecedor</h2>
             </div>
         </div>
     </a>

@@ -85,8 +85,8 @@ if ($_SESSION['log']) {
 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-warning" value="ATUALIZAR" name="CHECK">Salvar Atualização do Produto</button>
                 <button type="submit" class="btn btn-danger" value="DELETAR" name="CHECK" onClick="return confirm('Deseja Realmente Apagar o Produto?')">Apagar Produto</button>
+                <button type="submit" class="btn btn-warning" value="ATUALIZAR" name="CHECK">Salvar Atualização do Produto</button>
             </div>
             </form>
         </div>

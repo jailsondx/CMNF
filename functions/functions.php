@@ -38,7 +38,7 @@ function valida_login($user, $pass, $conn)
         $_SESSION['log'] = 'LOGIN REALIZADO';
         header('location: ' . $url);
     } else {
-        $_SESSION['msg'] = 'ACESSO NÃO AUTORIZADO';
+        $_SESSION['msg'] = 'ACESSO NÃO AUTORIZADO<br>ERRO L0G1N';
         header('Location: ../pages/index.php');
     }
 }
@@ -98,7 +98,7 @@ function busca_produto($busca, $conn)
             echo "<p style = 'color: #d2dae2;'>Preço de compra: R$ ".number_format($row_result['valor_compra']/100,2,",",".")."<br>";
             echo "Preço de venda: R$ ".number_format($row_result['valor_venda']/100,2,",",".")."<br>";
             echo "<br>Vendido por: ".$row_result['fornecedor']."<br></p>";
-            //echo "<input type='button' class='btn btn-warning' id='btn-edit' value='EDITAR' name='EDITAR' data-toggle='modal' data-target='#exampleModal' data-whatever='".$row_result['item']."' >";
+            //echo "<input type='button' class='btn btn-warning' id='btn-edit' value='EDITAR' name='EDITAR' data-toggle='modal' data-target='#produtoModal' data-whatever='".$row_result['item']."' >";
             editar_produto($row_result);
             echo "</div><br>";
         }
@@ -107,7 +107,7 @@ function busca_produto($busca, $conn)
 function editar_produto($row_result)
 {
     echo "<input type='button' class='btn btn-warning' id='btn-edit' value='EDITAR' name='EDITAR' 
-    data-toggle='modal' data-target='#exampleModal'
+    data-toggle='modal' data-target='#produtoModal'
     data-id='".$row_result['id']."' 
     data-item='".$row_result['item']."' 
     data-codbarras='".$row_result['cod_barras']."'
@@ -157,9 +157,26 @@ function apaga_produto($prd, $conn)
 
     if ($apagar->execute()) {
         $_SESSION['msg'] = "<p style = 'color: #e67e22;'> PRODUTO APAGADO COM SUCESSO</p>"; //Gera mensagem de cadastro OK
+        header("Location: ../pages/fornecedor_del.php"); //direciona a mensagem para a pagina produto_busca.php
+    } else {
+        $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE EXCLUSÃO<br>ERRO PR0DUCT</p>"; //Gera mensagem de erro no cadastro
+        header("Location: ../pages/fornecedor_del.php"); //direciona a mensagem para a pagina produto_busca.php
+    }
+}
+
+function apaga_fornecedor($for, $conn)
+{
+    $apagar_produto = "DELETE FROM fornecedor WHERE id = $for"; //função deletar do mysql
+
+    $apagar = $conn->prepare($apagar_produto);
+    $apagar->bindParam(':id', $for->id);
+    
+
+    if ($apagar->execute()) {
+        $_SESSION['msg'] = "<p style = 'color: #e67e22;'> FORNECEDOR APAGADO COM SUCESSO</p>"; //Gera mensagem de cadastro OK
         header("Location: ../pages/produto_busca.php"); //direciona a mensagem para a pagina produto_busca.php
     } else {
-        $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE EXCLUSÃO<br>VERIFIQUE OS DADOS </p>"; //Gera mensagem de erro no cadastro
+        $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE EXCLUSÃO<br>ERRO F0N3C3D0R</p>"; //Gera mensagem de erro no cadastro
         header("Location: ../pages/produto_busca.php"); //direciona a mensagem para a pagina produto_busca.php
     }
 }
@@ -173,4 +190,23 @@ function allproducts($conn){
             $grupo = $row_result['item'];
         }
     return $grupo;
+}
+
+function allfornecedor($conn){
+    //LISTA TODOS OS FORNECEDORES DO BD
+    $sql = "SELECT * FROM fornecedor ORDER BY fornecedor";
+    $resultado = $conn->prepare($sql);
+    $resultado->execute();
+
+    //ESCREVE OS FORNECEDORES E GERA O BOTÃO QUE CHAMA VALIDA.PHP E CHAMA FUNÇÃO DE APAGA_FORNECEDOR
+        while($row_result = $resultado->fetch(PDO::FETCH_ASSOC)){
+            ;
+            echo "<div class='resultados-box'>";
+            echo "<h1>".$row_result['fornecedor']."</h1>";
+            echo "<p style = 'color: #d2dae2;'>Cidade: ".$row_result['cidade'];
+            echo "<form method='POST' action='../functions/valida.php' name='APAGAR'>";
+            echo "<input type='hidden' class='form-control' id='recipient-id' name='id' value='".$row_result['id']."'>";
+            echo "<input type='submit' class='btn btn-warning' id='btn-edit' value='APAGAR' name='CHECK'></a>";
+            echo "</div><br>";
+        }
 }

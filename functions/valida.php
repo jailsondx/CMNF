@@ -56,9 +56,13 @@ if ($log) {
             $prd = addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT));
             apaga_produto($prd, $conn);
         break;
+        case 'APAGAR';
+            $for = addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT));
+            apaga_fornecedor($for, $conn);
+        break;
     }
 } else {
-    $_SESSION['msg'] = 'ACESSO NÃO AUTORIZADO';
+    $_SESSION['msg'] = 'ACESSO NÃO AUTORIZADO<br>ERRO V4L1D4';
     header('location: ../pages/index.php');
 }
 
