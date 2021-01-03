@@ -11,7 +11,7 @@ $resultado_msg_cont = $conn->prepare($result_msg_cont);
 $resultado_msg_cont->execute();
 
 while($row_msg_cont = $resultado_msg_cont->fetch(PDO::FETCH_ASSOC)){
-    $data[] = $row_msg_cont['fornecedor'];
+    $fornecedor[] = $row_msg_cont['fornecedor'];
 }
 
-echo json_encode($data);
+echo json_encode($fornecedor);

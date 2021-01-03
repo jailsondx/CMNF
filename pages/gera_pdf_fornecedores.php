@@ -16,7 +16,7 @@ if (!$conn) {
 }
 
 //CABEÇALHO DO PDF
-$pagina .= "<h1 style='text-align: center'>RELATÓRIO DE DE FORNECEDORES</h1>";
+$pagina .= "<h1 style='text-align: center'>RELATÓRIO DE FORNECEDORES</h1>";
 $pagina .= "<h2 style='text-align: center'>Sistema CMNF</h2>";
 $pagina .= "<h3 style='text-align: center'>Cliente: Mercadinho Menino Deus</h3><hr>";
 

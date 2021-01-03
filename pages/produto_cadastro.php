@@ -20,7 +20,7 @@ if ($_SESSION['log']) {
                 <input type="text" class="form-control" name="item" maxlength="250" autocomplete="off" required>
 
                 <label for="cod_barras">Codigo de Barras</label>
-                <input type="text" class="form-control" name="cod_barras" maxlength="13" autocomplete="off" required>
+                <input type="text" class="form-control" name="cod_barras" id="cod_barras" maxlength="13" autocomplete="off" required>
 
                 <label for="fornecedor">Fornecedor</label>
                 <input type="text" class="form-control" name="fornecedor" id="fornecedor" maxlength="250" autocomplete="off">
@@ -39,7 +39,7 @@ if ($_SESSION['log']) {
 
                 <label for="data">Data da Compra</label>
                 <input type="text" class="form-control" id="datepicker" name="data_compra" maxlength="12" autocomplete="off" required>
-                
+
 
                 <a href="select_screen.php"> <input type="button" class="btn btn-warning" id="btn-return" value="VOLTAR" name="VOLTAR"> </a>
                 <input type="submit" class="btn btn-warning" id="btn" value="CADASTRAR" name="CHECK">
@@ -70,6 +70,8 @@ if ($_SESSION['log']) {
                 });
             });
         </script>
+
+        <!-- SCRIPTS DE TIPO DE EMBALAGEM -->
         <script>
             $(function() {
                 var embalagem = document.getElementsByName("embalagem");

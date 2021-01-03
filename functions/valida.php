@@ -23,7 +23,13 @@ if ($log) {
             $prd->embalagem = strtoupper(addslashes(filter_input(INPUT_POST, 'embalagem', FILTER_SANITIZE_STRING)));
             $data = strtoupper(addslashes(filter_input(INPUT_POST, 'data_compra')));
             $prd->data_compra = implode("-",array_reverse(explode("/",$data))); //converte data em formato americano para o MySql
-            cadastra_produto($prd, $conn);
+            
+            if (verifica_codbarras($prd->cod_barras, $conn) == TRUE){
+                //PRODUTO JÁ EXISTE
+            } else {
+                cadastra_produto($prd, $conn);
+            }
+            
         break;
 
         case 'BUSCAR':
@@ -35,7 +41,14 @@ if ($log) {
             $for = new fornecedor(); //instanciando o objeto fornecedor na classe fornecedor no arquivo functions.php
             $for->fornecedor = strtoupper(addslashes(filter_input(INPUT_POST, 'fornecedor', FILTER_SANITIZE_STRING)));
             $for->cidade = strtoupper(addslashes(filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_STRING)));
-            cadastra_fornecedor($for, $conn);
+            
+
+            if (verifica_fornecedor($for->fornecedor, $conn) == TRUE){
+                //PRODUTO JÁ EXISTE
+            } else {
+                cadastra_fornecedor($for, $conn);
+            }
+
         break;
 
         case 'ATUALIZAR';
@@ -56,6 +69,7 @@ if ($log) {
             $prd = addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT));
             apaga_produto($prd, $conn);
         break;
+
         case 'APAGAR';
             $for = addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT));
             apaga_fornecedor($for, $conn);

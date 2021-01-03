@@ -67,6 +67,42 @@ function cadastra_produto($prd, $conn)
     }
 }
 
+function verifica_codbarras($cod_barras, $conn)
+{
+    $inf_produto = "SELECT cod_barras FROM produtos WHERE cod_barras LIKE '$cod_barras' LIMIT 1";
+    //$inf_produto = "SELECT * FROM produtos WHERE cod_barras LIKE '$busca' LIMIT 5";  
+    //$inf_produto = "SELECT * FROM produtos WHERE item LIKE '%$busca%' LIMIT 5"; 
+    $resultado = $conn->prepare($inf_produto);
+    $resultado->execute();
+    $row_result = $resultado->fetch(PDO::FETCH_ASSOC);
+
+    if ($row_result['cod_barras'] == $cod_barras) {
+        //$_SESSION['msg'] = "<p style = 'color: #e67e22;'> PRODUTO JÁ EXISTE </p>"; //Gera mensagem de produto já existente
+        $_SESSION['msg'] = "<script>alert('PRODUTO JÁ EXISTE! Verifique na Busca de Produtos');</script>"; //Gera mensagem ALERT de produto já existente
+        header("Location: ../pages/produto_cadastro.php"); //direciona a mensagem para a pagina produto_cadastro.php
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+function verifica_fornecedor($fornecedor, $conn)
+{
+    $inf_produto = "SELECT fornecedor FROM fornecedor WHERE fornecedor LIKE '$fornecedor' LIMIT 1";
+    $resultado = $conn->prepare($inf_produto);
+    $resultado->execute();
+    $row_result = $resultado->fetch(PDO::FETCH_ASSOC);
+
+    if ($row_result['fornecedor'] == $fornecedor) {
+        //$_SESSION['msg'] = "<p style = 'color: #e67e22;'> PRODUTO JÁ EXISTE </p>"; //Gera mensagem de produto já existente
+        $_SESSION['msg'] = "<script>alert('FORNECEDOR JÁ CADASTRADO!');</script>"; //Gera mensagem ALERT de fornecedor já existente
+        header("Location: ../pages/fornecedor_cadastro.php"); //direciona a mensagem para a pagina cornecedor_cadastro.php
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
 function cadastra_fornecedor($for, $conn)
 {
     $cad_fornecedor = "INSERT INTO fornecedor (fornecedor, cidade) VALUE (:fornecedor, :cidade)"; //função inserir do mysql
@@ -157,10 +193,10 @@ function apaga_produto($prd, $conn)
 
     if ($apagar->execute()) {
         $_SESSION['msg'] = "<p style = 'color: #e67e22;'> PRODUTO APAGADO COM SUCESSO</p>"; //Gera mensagem de cadastro OK
-        header("Location: ../pages/fornecedor_del.php"); //direciona a mensagem para a pagina produto_busca.php
+        header("Location: ../pages/produto_busca.php"); //direciona a mensagem para a pagina produto_busca.php
     } else {
         $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE EXCLUSÃO<br>ERRO PR0DUCT</p>"; //Gera mensagem de erro no cadastro
-        header("Location: ../pages/fornecedor_del.php"); //direciona a mensagem para a pagina produto_busca.php
+        header("Location: ../pages/produto_busca.php"); //direciona a mensagem para a pagina produto_busca.php
     }
 }
 
@@ -174,12 +210,13 @@ function apaga_fornecedor($for, $conn)
 
     if ($apagar->execute()) {
         $_SESSION['msg'] = "<p style = 'color: #e67e22;'> FORNECEDOR APAGADO COM SUCESSO</p>"; //Gera mensagem de cadastro OK
-        header("Location: ../pages/produto_busca.php"); //direciona a mensagem para a pagina produto_busca.php
+        header("Location: ../pages/fornecedor_del.php"); //direciona a mensagem para a pagina produto_busca.php
     } else {
         $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE EXCLUSÃO<br>ERRO F0N3C3D0R</p>"; //Gera mensagem de erro no cadastro
-        header("Location: ../pages/produto_busca.php"); //direciona a mensagem para a pagina produto_busca.php
+        header("Location: ../pages/fornecedor_del.php"); //direciona a mensagem para a pagina produto_busca.php
     }
 }
+
 
 function allproducts($conn){
     $sql = "SELECT * FROM produto ORDER BY item";
@@ -203,10 +240,10 @@ function allfornecedor($conn){
             ;
             echo "<div class='resultados-box'>";
             echo "<h1>".$row_result['fornecedor']."</h1>";
-            echo "<p style = 'color: #d2dae2;'>Cidade: ".$row_result['cidade'];
+            echo "<p style = 'color: #d2dae2;'>Cidade: ".$row_result['cidade']."</p>";
             echo "<form method='POST' action='../functions/valida.php' name='APAGAR'>";
             echo "<input type='hidden' class='form-control' id='recipient-id' name='id' value='".$row_result['id']."'>";
-            echo "<input type='submit' class='btn btn-warning' id='btn-edit' value='APAGAR' name='CHECK'></a>";
+            echo "<input type='submit' class='btn btn-warning' id='btn-edit' value='APAGAR' name='CHECK'>";
             echo "</div><br>";
         }
 }
