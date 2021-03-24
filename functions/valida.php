@@ -65,6 +65,14 @@ if ($log) {
             atualiza_produto($prd, $conn);
         break;
 
+        case 'ATUALIZAR_FOR';
+            $for = new fornecedor();
+            $for->id = strtoupper(addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT)));
+            $for->fornecedor = strtoupper(addslashes(filter_input(INPUT_POST, 'fornecedor', FILTER_SANITIZE_STRING)));
+            $for->cidade = strtoupper(addslashes(filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_STRING)));
+            atualiza_fornecedor($for, $conn);
+        break;
+
         case 'DELETAR';
             $prd = addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT));
             apaga_produto($prd, $conn);

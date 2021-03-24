@@ -56,7 +56,7 @@ function cadastra_produto($prd, $conn)
     $inserir->bindParam(':quantidade', $prd->quantidade);
     $inserir->bindParam(':embalagem', $prd->embalagem);
     $inserir->bindParam(':data_compra', $prd->data_compra);
-    
+
     if ($inserir->execute()) {
         $_SESSION['msg'] = "<p style = 'color: #e67e22;'> CADASTRO REALIZADO </p>"; //Gera mensagem de cadastro OK
         header("Location: ../pages/produto_cadastro.php"); //direciona a mensagem para a pagina: produto_cadastro.php
@@ -156,6 +156,16 @@ function editar_produto($row_result)
     >";
 }
 
+function editar_fornecedor($row_result)
+{
+    echo "<input type='button' class='btn btn-warning' id='btn-edit' value='EDITAR' name='EDITAR' 
+    data-toggle='modal' data-target='#fornecedorModal'
+    data-id='".$row_result['id']."' 
+    data-fornecedor='".$row_result['fornecedor']."' 
+    data-cidade='".$row_result['cidade']."'
+    >";
+}
+
 function atualiza_produto($prd, $conn)
 {
     $atualiza_produto = "UPDATE produtos SET item=:item, cod_barras=:cod_barras, fornecedor=:fornecedor, 
@@ -183,6 +193,25 @@ function atualiza_produto($prd, $conn)
     }
 }
 
+function atualiza_fornecedor($for, $conn)
+{
+    $atualiza_fornecedor = "UPDATE fornecedor SET fornecedor=:fornecedor, cidade=:cidade WHERE id=:id"; //função inserir do mysql
+
+    $atualizar = $conn->prepare($atualiza_fornecedor);
+    $atualizar->bindParam(':id', $for->id);
+    $atualizar->bindParam(':fornecedor', $for->fornecedor);
+    $atualizar->bindParam(':cidade', $for->cidade);
+    
+
+    if ($atualizar->execute()) {
+        $_SESSION['msg'] = "<p style = 'color: #e67e22;'> ATUALIZAÇÃO REALIZADA </p>"; //Gera mensagem de cadastro OK
+        header("Location: ../pages/fornecedor_busca.php"); //direciona a mensagem para a pagina produto_busca.php
+    } else {
+        $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE ATUALIZAÇÃO<br>VERIFIQUE OS DADOS </p>"; //Gera mensagem de erro no cadastro
+        header("Location: ../pages/fornecedor_busca.php"); //direciona a mensagem para a pagina produto_busca.php
+    }
+}
+
 function apaga_produto($prd, $conn)
 {
     $apagar_produto = "DELETE FROM produtos WHERE id = $prd"; //função deletar do mysql
@@ -202,9 +231,9 @@ function apaga_produto($prd, $conn)
 
 function apaga_fornecedor($for, $conn)
 {
-    $apagar_produto = "DELETE FROM fornecedor WHERE id = $for"; //função deletar do mysql
+    $apagar_fornecedor = "DELETE FROM fornecedor WHERE id = $for"; //função deletar do mysql
 
-    $apagar = $conn->prepare($apagar_produto);
+    $apagar = $conn->prepare($apagar_fornecedor);
     $apagar->bindParam(':id', $for->id);
     
 
@@ -235,15 +264,17 @@ function allfornecedor($conn){
     $resultado = $conn->prepare($sql);
     $resultado->execute();
 
-    //ESCREVE OS FORNECEDORES E GERA O BOTÃO QUE CHAMA VALIDA.PHP E CHAMA FUNÇÃO DE APAGA_FORNECEDOR
-        while($row_result = $resultado->fetch(PDO::FETCH_ASSOC)){
-            ;
-            echo "<div class='resultados-box'>";
-            echo "<h1>".$row_result['fornecedor']."</h1>";
-            echo "<p style = 'color: #d2dae2;'>Cidade: ".$row_result['cidade']."</p>";
-            echo "<form method='POST' action='../functions/valida.php' name='APAGAR'>";
-            echo "<input type='hidden' class='form-control' id='recipient-id' name='id' value='".$row_result['id']."'>";
-            echo "<input type='submit' class='btn btn-warning' id='btn-edit' value='APAGAR' name='CHECK'>";
-            echo "</div><br>";
-        }
+    while($row_result = $resultado->fetch(PDO::FETCH_ASSOC)){
+        echo "<div class='resultados-box'>";
+        echo "<form method='POST' action='../functions/valida.php' name='ATUALIZA'>";
+        echo "<h1>".$row_result['fornecedor']."</h1>";
+        echo "<p style = 'color: #d2dae2;'>Cidade: ".$row_result['cidade']."</p>";
+        echo "<input type='hidden' class='form-control' id='recipient-id' name='id' value='".$row_result['id']."'>";
+        //echo "<input type='submit' class='btn btn-warning' id='btn-edit' value='APAGAR' name='CHECK'>";
+        //echo "<div class='modal-footer'> <button type='submit' class='btn btn-danger' value='APAGAR' name='CHECK' onClick='return confirm('Deseja Realmente Apagar o Fornecedor?')'>Apagar Fornecedor</button> </div>";
+        
+        echo "ID: ".$row_result['id']."";
+        editar_fornecedor($row_result);
+        echo "</div><br>";
+    }
 }

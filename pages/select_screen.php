@@ -21,7 +21,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="fornecedor_cadastro.php">Registrar Fornecedor</a>
-                    <a class="dropdown-item" href="fornecedor_del.php">Apagar Fornecedor</a>
+                    <a class="dropdown-item" href="fornecedor_busca.php">Apagar Fornecedor</a>
                 </div>
             </li>
 
