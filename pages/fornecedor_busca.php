@@ -13,6 +13,7 @@ if ($_SESSION['log']) {
 
 <div class="buscar-box">
     <div class="textbox">
+        <h1>LISTA DE FORNECEDORES</h1>
         <?php
             allfornecedor($conn);
         ?>
