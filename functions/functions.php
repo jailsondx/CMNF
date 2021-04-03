@@ -31,12 +31,20 @@ function valida_login($user, $pass, $conn)
 
     $row_result = $resultado->fetch(PDO::FETCH_ASSOC);
 
-    if (($row_result['usuario'] == $user) && ($row_result['senha'] == $pass)) {
+    if (($row_result['usuario'] == $user) && ($row_result['senha'] == $pass) && ($row_result['nivel'] == 'admin') ) {
         //echo $row_result['usuario'];
         //echo $row_result['senha'];
         $url = '../pages/select_screen.php';
         $_SESSION['log'] = 'LOGIN REALIZADO';
         header('location: ' . $url);
+
+    } else if (($row_result['usuario'] == $user) && ($row_result['senha'] == $pass) && ($row_result['nivel'] == 'basico') ) {
+        //echo $row_result['usuario'];
+        //echo $row_result['senha'];
+        $url = '../pages/select_screen2.php';
+        $_SESSION['log'] = 'LOGIN REALIZADO';
+        header('location: ' . $url);
+    
     } else {
         $_SESSION['msg'] = 'ACESSO NÃO AUTORIZADO<br>ERRO L0G1N';
         header('Location: ../pages/index.php');
@@ -166,6 +174,16 @@ function editar_fornecedor($row_result)
     >";
 }
 
+function relatorio_fornecedor($row_result)
+{
+    echo "<form method='GET' action='../pages/gera_pdf_fornecedor.php?id=".$row_result['id']."'>";
+    //echo "<a href='../pages/gera_pdf_fornecedor.php?id=".$row_result['id']."'";
+    echo "<input type='hidden' name='id' value='".$row_result['id']."'>";
+    echo "<input type='submit' class='btn btn-warning' id='btn-rel' value='GERAR RELATORIO'>";
+    //echo "</a>";
+    echo "</form>";
+}
+
 function atualiza_produto($prd, $conn)
 {
     $atualiza_produto = "UPDATE produtos SET item=:item, cod_barras=:cod_barras, fornecedor=:fornecedor, 
@@ -193,6 +211,33 @@ function atualiza_produto($prd, $conn)
     }
 }
 
+function atualiza_produto2($prd, $conn)
+{
+    $atualiza_produto = "UPDATE produtos SET item=:item, cod_barras=:cod_barras, fornecedor=:fornecedor, 
+                        valor_compra=:valor_compra, valor_venda=:valor_venda, quantidade=:quantidade, 
+                        embalagem=:embalagem, data_compra=:data_compra WHERE id=:id"; //função inserir do mysql
+
+    $atualizar = $conn->prepare($atualiza_produto);
+    $atualizar->bindParam(':id', $prd->id);
+    $atualizar->bindParam(':item', $prd->item);
+    $atualizar->bindParam(':cod_barras', $prd->cod_barras);
+    $atualizar->bindParam(':fornecedor', $prd->fornecedor);
+    $atualizar->bindParam(':valor_compra', $prd->valor_compra);
+    $atualizar->bindParam(':valor_venda', $prd->valor_venda);
+    $atualizar->bindParam(':quantidade', $prd->quantidade);
+    $atualizar->bindParam(':embalagem', $prd->embalagem);
+    $atualizar->bindParam(':data_compra', $prd->data_compra);
+    
+
+    if ($atualizar->execute()) {
+        $_SESSION['msg'] = "<p style = 'color: #e67e22;'> ATUALIZAÇÃO REALIZADA </p>"; //Gera mensagem de cadastro OK
+        header("Location: ../pages/produto_busca2.php"); //direciona a mensagem para a pagina produto_busca2.php
+    } else {
+        $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE ATUALIZAÇÃO<br>VERIFIQUE OS DADOS </p>"; //Gera mensagem de erro no cadastro
+        header("Location: ../pages/produto_busca2.php"); //direciona a mensagem para a pagina produto_busca2.php
+    }
+}
+
 function atualiza_fornecedor($for, $conn)
 {
     $atualiza_fornecedor = "UPDATE fornecedor SET fornecedor=:fornecedor, cidade=:cidade WHERE id=:id"; //função inserir do mysql
@@ -205,10 +250,10 @@ function atualiza_fornecedor($for, $conn)
 
     if ($atualizar->execute()) {
         $_SESSION['msg'] = "<p style = 'color: #e67e22;'> ATUALIZAÇÃO REALIZADA </p>"; //Gera mensagem de cadastro OK
-        header("Location: ../pages/fornecedor_busca.php"); //direciona a mensagem para a pagina produto_busca.php
+        header("Location: ../pages/fornecedor_apagar.php"); //direciona a mensagem para a pagina fornecedor_apagar.php
     } else {
         $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE ATUALIZAÇÃO<br>VERIFIQUE OS DADOS </p>"; //Gera mensagem de erro no cadastro
-        header("Location: ../pages/fornecedor_busca.php"); //direciona a mensagem para a pagina produto_busca.php
+        header("Location: ../pages/fornecedor_apagar.php"); //direciona a mensagem para a pagina fornecedor_apagar.php
     }
 }
 
@@ -229,6 +274,23 @@ function apaga_produto($prd, $conn)
     }
 }
 
+function apaga_produto2($prd, $conn)
+{
+    $apagar_produto = "DELETE FROM produtos WHERE id = $prd"; //função deletar do mysql
+
+    $apagar = $conn->prepare($apagar_produto);
+    $apagar->bindParam(':id', $prd->id);
+    
+
+    if ($apagar->execute()) {
+        $_SESSION['msg'] = "<p style = 'color: #e67e22;'> PRODUTO APAGADO COM SUCESSO</p>"; //Gera mensagem de cadastro OK
+        header("Location: ../pages/produto_busca2.php"); //direciona a mensagem para a pagina produto_busca2.php
+    } else {
+        $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE EXCLUSÃO<br>ERRO PR0DUCT</p>"; //Gera mensagem de erro no cadastro
+        header("Location: ../pages/produto_busca2.php"); //direciona a mensagem para a pagina produto_busca2.php
+    }
+}
+
 function apaga_fornecedor($for, $conn)
 {
     $apagar_fornecedor = "DELETE FROM fornecedor WHERE id = $for"; //função deletar do mysql
@@ -239,10 +301,10 @@ function apaga_fornecedor($for, $conn)
 
     if ($apagar->execute()) {
         $_SESSION['msg'] = "<p style = 'color: #e67e22;'> FORNECEDOR APAGADO COM SUCESSO</p>"; //Gera mensagem de cadastro OK
-        header("Location: ../pages/fornecedor_del.php"); //direciona a mensagem para a pagina produto_busca.php
+        header("Location: ../pages/fornecedor_apagar.php"); //direciona a mensagem para a pagina fornecedor_apagar.php
     } else {
         $_SESSION['msg'] = "<p style = 'color: RED;'> ERRO NA TENTATIVA DE EXCLUSÃO<br>ERRO F0N3C3D0R</p>"; //Gera mensagem de erro no cadastro
-        header("Location: ../pages/fornecedor_del.php"); //direciona a mensagem para a pagina produto_busca.php
+        header("Location: ../pages/fornecedor_apagar.php"); //direciona a mensagem para a pagina fornecedor_apagar.php
     }
 }
 
@@ -272,9 +334,27 @@ function allfornecedor($conn){
         echo "<input type='hidden' class='form-control' id='recipient-id' name='id' value='".$row_result['id']."'>";
         //echo "<input type='submit' class='btn btn-warning' id='btn-edit' value='APAGAR' name='CHECK'>";
         //echo "<div class='modal-footer'> <button type='submit' class='btn btn-danger' value='APAGAR' name='CHECK' onClick='return confirm('Deseja Realmente Apagar o Fornecedor?')'>Apagar Fornecedor</button> </div>";
-        
-        echo "ID: ".$row_result['id']."";
+        //echo "ID: ".$row_result['id']."";
         editar_fornecedor($row_result);
+        echo "</div><br>";
+    }
+}
+
+function allfornecedor_relatorio($conn){
+    //LISTA TODOS OS FORNECEDORES DO BD
+    $sql = "SELECT * FROM fornecedor ORDER BY fornecedor";
+    $resultado = $conn->prepare($sql);
+    $resultado->execute();
+
+    while($row_result = $resultado->fetch(PDO::FETCH_ASSOC)){
+        echo "<div class='resultados-box'>";
+        echo "<h1>".$row_result['fornecedor']."</h1>";
+        echo "<p style = 'color: #d2dae2;'>Cidade: ".$row_result['cidade']."</p>";
+        echo "<input type='hidden' class='form-control' id='recipient-id' name='id' value='".$row_result['id']."'>";
+        //echo "<input type='submit' class='btn btn-warning' id='btn-edit' value='APAGAR' name='CHECK'>";
+        //echo "<div class='modal-footer'> <button type='submit' class='btn btn-danger' value='APAGAR' name='CHECK' onClick='return confirm('Deseja Realmente Apagar o Fornecedor?')'>Apagar Fornecedor</button> </div>";
+        //echo "ID: ".$row_result['id']."";
+        relatorio_fornecedor($row_result);
         echo "</div><br>";
     }
 }

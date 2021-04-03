@@ -17,6 +17,6 @@ if ($_SESSION['log']) {
         <?php
             allfornecedor_relatorio($conn);
         ?>
-        <a href="select_screen.php"> <input type="button" class="btn btn-warning" id="btn-return-xl" value="VOLTAR" name="VOLTAR"> </a>
+        <a href="select_screen2.php"> <input type="button" class="btn btn-warning" id="btn-return-xl" value="VOLTAR" name="VOLTAR"> </a>
     </div>
 </div>

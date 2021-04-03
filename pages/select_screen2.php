@@ -12,16 +12,7 @@
                     <a class="dropdown-item" href="gera_pdf_produtos.php" target="_blank">Produtos</a>
                     <a class="dropdown-item" href="gera_pdf_fornecedores.php" target="_blank">Fornecedores</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="fornecedor_busca.php" target="_blank">Buscar Fornecedor</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Fornecedores
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="fornecedor_cadastro.php">Registrar Fornecedor</a>
-                    <a class="dropdown-item" href="fornecedor_apagar.php">Apagar/Editar Fornecedor</a>
+                    <a class="dropdown-item" href="fornecedor_busca2.php" target="_blank">Buscar Fornecedor</a>
                 </div>
             </li>
 
@@ -44,15 +35,12 @@ if ($_SESSION['log']) {
 
 ?>
 
-
-
-
 <div class="container-box-screen">
 
-    <a href="produto_busca.php">
+    <a href="produto_busca2.php">
         <div class="box">
             <div class="icon">
-                <i class="fas fa-search"></i>
+                <i class="fas fa-box"></i>
             </div>
             <div class="conteudo">
                 <h2>Buscar Produto</h2>
@@ -60,26 +48,5 @@ if ($_SESSION['log']) {
         </div>
     </a>
 
-    <a href="produto_cadastro.php">
-        <div class="box">
-            <div class="icon">
-                <i class="fas fa-box"></i>
-            </div>
-            <div class="conteudo">
-                <h2>Cadastrar Produto</h2>
-            </div>
-        </div>
-    </a>
-
-    <a href="fornecedor_cadastro.php">
-        <div class="box">
-            <div class="icon">
-                <i class="fas fa-address-card"></i>
-            </div>
-            <div class="conteudo">
-                <h2>Registrar Fornecedor</h2>
-            </div>
-        </div>
-    </a>
-
 </div>
+

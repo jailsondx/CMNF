@@ -325,6 +325,22 @@ input:focus{
     background-color: #c0392b;
 }
 
+#btn-rel{
+    width: 30%;
+    background: none;
+    border: 2px solid #a29bfe;
+    color: white;
+    margin-left: 510px !important;
+    padding: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 15px 0;
+}
+
+#btn-rel:hover{
+    background-color: #a29bfe;
+}
+
 .modal-header{
     background-color: #2980b9 !important;
     font-size: 60px !important;

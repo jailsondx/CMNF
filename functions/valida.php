@@ -23,12 +23,14 @@ if ($log) {
             $prd->embalagem = strtoupper(addslashes(filter_input(INPUT_POST, 'embalagem', FILTER_SANITIZE_STRING)));
             $data = strtoupper(addslashes(filter_input(INPUT_POST, 'data_compra')));
             $prd->data_compra = implode("-",array_reverse(explode("/",$data))); //converte data em formato americano para o MySql
-            
+            cadastra_produto($prd, $conn);
+            /*
             if (verifica_codbarras($prd->cod_barras, $conn) == TRUE){
                 //PRODUTO JÁ EXISTE
             } else {
                 cadastra_produto($prd, $conn);
             }
+            */
             
         break;
 
@@ -65,6 +67,20 @@ if ($log) {
             atualiza_produto($prd, $conn);
         break;
 
+        case 'ATUALIZAR2';
+            $prd = new produto();
+            $prd->id = strtoupper(addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT)));
+            $prd->item = strtoupper(addslashes(filter_input(INPUT_POST, 'item', FILTER_SANITIZE_STRING)));
+            $prd->cod_barras = strtoupper(addslashes(filter_input(INPUT_POST, 'cod_barras', FILTER_SANITIZE_NUMBER_INT)));
+            $prd->fornecedor = strtoupper(addslashes(filter_input(INPUT_POST, 'fornecedor', FILTER_SANITIZE_STRING)));
+            $prd->valor_compra = addslashes(filter_input(INPUT_POST, 'valor_compra',FILTER_SANITIZE_NUMBER_FLOAT));
+            $prd->valor_venda = strtoupper(addslashes(filter_input(INPUT_POST, 'valor_venda', FILTER_SANITIZE_NUMBER_FLOAT)));
+            $prd->quantidade = strtoupper(addslashes(filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_NUMBER_INT)));
+            $prd->embalagem = strtoupper(addslashes(filter_input(INPUT_POST, 'embalagem', FILTER_SANITIZE_STRING)));
+            $prd->data_compra = strtoupper(addslashes(filter_input(INPUT_POST, 'data_compra')));
+            atualiza_produto2($prd, $conn);
+        break;
+
         case 'ATUALIZAR_FOR';
             $for = new fornecedor();
             $for->id = strtoupper(addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT)));
@@ -82,6 +98,8 @@ if ($log) {
             $for = addslashes(filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT));
             apaga_fornecedor($for, $conn);
         break;
+
+       
     }
 } else {
     $_SESSION['msg'] = 'ACESSO NÃO AUTORIZADO<br>ERRO V4L1D4';
