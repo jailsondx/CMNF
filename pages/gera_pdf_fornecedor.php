@@ -16,7 +16,7 @@ if (!$conn) {
 }
 
 //CABEÇALHO DO PDF
-$pagina .= "<h1 style='text-align: center'>RELATÓRIO DE FORNECEDORES</h1>";
+$pagina .= "<h1 style='text-align: center'>RELATÓRIO DE FORNECEDOR</h1>";
 $pagina .= "<h2 style='text-align: center'>Sistema CMNF</h2>";
 $pagina .= "<h3 style='text-align: center'>Cliente: Mercadinho Menino Deus</h3><hr>";
 
@@ -41,9 +41,9 @@ while ($cont_fornecedor = $fornecedor->fetch(PDO::FETCH_ASSOC)){
                 $pagina .=  $title;
                 $pagina .= "<table border=0 >
                                 <tr style='background-color: #ecf0f1;'>
-                                    <td width=810px> ITEM </td>
-                                    <td width=100px style='text-align: center;'> COMPRA </td>
-                                    <td width=100px style='text-align: center;'> VENDA </td>
+                                    <td width=810px id='topo'> ITEM </td>
+                                    <td width=100px style='text-align: center;' id='topo'> COMPRA </td>
+                                    <td width=100px style='text-align: center;' id='topo'> VENDA </td>
                                 </tr>
                             </table>";
             }

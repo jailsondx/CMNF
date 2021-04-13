@@ -99,7 +99,6 @@ if ($log) {
             apaga_fornecedor($for, $conn);
         break;
 
-       
     }
 } else {
     $_SESSION['msg'] = 'ACESSO NÃO AUTORIZADO<br>ERRO V4L1D4';

@@ -39,9 +39,9 @@ while ($cont_fornecedor = $fornecedor->fetch(PDO::FETCH_ASSOC)){
                 $pagina .=  $title;
                 $pagina .= "<table border=0 >
                                 <tr style='background-color: #ecf0f1;'>
-                                    <td width=810px> ITEM </td>
-                                    <td width=100px style='text-align: center;'> COMPRA </td>
-                                    <td width=100px style='text-align: center;'> VENDA </td>
+                                    <td width=810px id='topo'> ITEM </td>
+                                    <td width=100px style='text-align: center;' id='topo'> COMPRA </td>
+                                    <td width=100px style='text-align: center;' id='topo'> VENDA </td>
                                 </tr>
                             </table>";
             }

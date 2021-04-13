@@ -31,7 +31,7 @@ function valida_login($user, $pass, $conn)
 
     $row_result = $resultado->fetch(PDO::FETCH_ASSOC);
 
-    if (($row_result['usuario'] == $user) && ($row_result['senha'] == $pass) && ($row_result['nivel'] == 'admin') ) {
+    if (($row_result['usuario'] == $user) && ($row_result['senha'] == $pass) && ($row_result['nivel'] == 'admin') || ($row_result['usuario'] == $user) && ($row_result['senha'] == $pass) && ($row_result['nivel'] == 'superadmin') ) {
         //echo $row_result['usuario'];
         //echo $row_result['senha'];
         $url = '../pages/select_screen.php';

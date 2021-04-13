@@ -34,7 +34,7 @@ require '../functions/database.php';
   -->
 
   <!-- FAVICON -->
-  <link rel="shortcut icon" href="../css/images/favicon.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="../css/images/favicon.ico" type="image/x-icon" />
 
   <!-- SCRIPTS DE MASCARA DE DINHEIRO E DE QUANTIDADE -->
   <script>
